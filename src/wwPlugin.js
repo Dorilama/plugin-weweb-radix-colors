@@ -1,6 +1,7 @@
 /* wwEditor:start */
-import "./components/SettingsEdit.vue";
-import "./components/SettingsSummary.vue";
+// TODO
+import "./components/PaletteEdit.vue";
+import "./components/PaletteSummary.vue";
 /* wwEditor:end */
 
 export default {};
