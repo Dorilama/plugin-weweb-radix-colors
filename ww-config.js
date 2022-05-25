@@ -26,11 +26,11 @@ export default {
   ],
   actions: [
     {
-      name: "Set dark mode",
-      code: "setDarkMode",
+      name: "Set dark theme",
+      code: "setDarkTheme",
       isAsync: false,
       /* wwEditor:start */
-      edit: () => import("./src/components/SetDarkMode.vue"),
+      edit: () => import("./src/components/SetDarkTheme.vue"),
       getIsValid({ dark }) {
         console.log("valid", dark);
         return typeof dark == "boolean";

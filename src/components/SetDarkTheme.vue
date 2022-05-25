@@ -2,11 +2,12 @@
   <div class="settings">
     <wwEditorFormRow>
       <wwEditorInputRow
-        label="dark mode"
+        label="dark theme"
         required
         type="boolean"
         :model-value="dark"
         bindable
+        @update:modelValue="setDark"
       />
     </wwEditorFormRow>
   </div>
@@ -17,26 +18,21 @@ export default {
     plugin: { type: Object, required: true },
     args: {
       type: Object,
-      default: { dark: true },
+      default: () => ({ dark: true }),
     },
   },
   emits: ["update:args"],
-  data() {
-    console.log(this.args);
-    return {
-      dark: this.args,
-    };
-  },
-  watch: {
-    dark: {
-      handler(dark) {
-        console.log("watch", dark);
-        this.$emit("update:args", { ...this.args, dark });
-      },
-      immediate: true,
+  data() {},
+  computed: {
+    dark() {
+      return this.args.dark;
     },
   },
-  methods: {},
+  methods: {
+    setDark(dark) {
+      this.$emit("update:args", { ...this.args, dark });
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 /* wwEditor:start */
 import "./components/PaletteEdit.vue";
 import "./components/PaletteSummary.vue";
-import "./components/SetDarkMode.vue";
+import "./components/SetDarkTheme.vue";
 /* wwEditor:end */
 
 export default {
@@ -20,9 +20,9 @@ export default {
   toggleDarkTheme() {
     // can't test in dev editor
     const dark = wwLib.wwVariable.getValue(`${this.id}-dark`);
-    return this.setDarkMode({ dark: !dark });
+    return this.setDarkTheme({ dark: !dark });
   },
-  setDarkMode({ dark }) {
+  setDarkTheme({ dark }) {
     // can't test in dev editor
     wwLib.wwVariable.updateValue(`${this.id}-dark`, dark);
     return dark;
