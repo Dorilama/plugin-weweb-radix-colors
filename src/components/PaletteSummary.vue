@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     selected() {
-      return this.settings.publicData.colors || [];
+      return this.settings.publicData.selected || [];
     },
   },
 };

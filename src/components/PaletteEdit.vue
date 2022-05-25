@@ -40,7 +40,12 @@
   </div>
 </template>
 <script>
-import { groups, selectedArrToObj, selectedObjToArr } from "../utils";
+import {
+  groups,
+  selectedArrToObj,
+  selectedObjToArr,
+  createColorObject,
+} from "../utils";
 import Sample from "./Sample.vue";
 
 export default {
@@ -50,7 +55,7 @@ export default {
   },
   emits: ["update:settings"],
   data() {
-    const selected = selectedArrToObj(this.settings.publicData.colors || []);
+    const selected = selectedArrToObj(this.settings.publicData.selected || []);
     return {
       groups,
       selected,
@@ -59,21 +64,23 @@ export default {
   computed: {
     tips() {
       const value = Object.entries(groups.tips).reduce((acc, [key, fn]) => {
-        acc[key] = fn(this.settings.publicData.colors);
+        acc[key] = fn(this.settings.publicData.selected);
         return acc;
       }, {});
-      console.log(value);
       return value;
     },
   },
   watch: {
     selected: {
       handler(value) {
+        const newSelected = selectedObjToArr(value);
+        const newColors = createColorObject(newSelected);
         this.$emit("update:settings", {
           ...this.settings,
           publicData: {
             ...this.settings.publicData,
-            colors: selectedObjToArr(value),
+            selected: newSelected,
+            colors: newColors,
           },
         });
       },

@@ -121,3 +121,22 @@ export function selectedArrToObj(arr) {
     return acc;
   }, {});
 }
+
+export function createColorObject(selected) {
+  let light = [];
+  let dark = [];
+  selected.forEach((name) => {
+    if (isOverlay(name)) {
+      light = light.concat(Object.entries(Colors[name]));
+      dark = dark.concat(Object.entries(Colors[name]));
+      return;
+    }
+    light = light.concat(Object.entries(Colors[name]));
+    light = light.concat(Object.entries(Colors[name + "A"]));
+    dark = dark.concat(Object.entries(Colors[name + "Dark"]));
+    dark = dark.concat(Object.entries(Colors[name + "Dark" + "A"]));
+  });
+  light = Object.fromEntries(light);
+  dark = Object.fromEntries(dark);
+  return { light, dark };
+}
