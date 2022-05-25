@@ -31,9 +31,8 @@ export default {
       isAsync: false,
       /* wwEditor:start */
       edit: () => import("./src/components/SetDarkTheme.vue"),
-      getIsValid({ dark }) {
-        console.log("valid", dark);
-        return typeof dark == "boolean";
+      getIsValid() {
+        return true;
       },
       /* wwEditor:end */
     },
