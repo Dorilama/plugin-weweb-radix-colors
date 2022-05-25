@@ -1,7 +1,7 @@
 /* wwEditor:start */
-// TODO
 import "./components/PaletteEdit.vue";
 import "./components/PaletteSummary.vue";
+import "./components/SetDarkMode.vue";
 /* wwEditor:end */
 
 export default {
