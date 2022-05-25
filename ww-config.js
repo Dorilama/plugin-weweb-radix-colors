@@ -25,18 +25,17 @@ export default {
     { name: "dark", value: "dark", type: "boolean", defaultValue: false },
   ],
   actions: [
-    // {
-    //   name: "Set dark theme",
-    //   code: "setDarkTheme",
-    //   isAsync: false,
-    //   /* wwEditor:start */
-    //   edit: () => import("./src/components/SetDarkTheme.vue"),
-    //   getIsValid(settings) {
-    //     // TODO
-    //     return true;
-    //   },
-    //   /* wwEditor:end */
-    // },
+    {
+      name: "Set dark mode",
+      code: "setDarkMode",
+      isAsync: false,
+      /* wwEditor:start */
+      edit: () => import("./src/components/SetDarkMode.vue"),
+      getIsValid(value) {
+        return typeof value == "boolean";
+      },
+      /* wwEditor:end */
+    },
     {
       name: "Toggle dark theme",
       code: "toggleDarkTheme",
