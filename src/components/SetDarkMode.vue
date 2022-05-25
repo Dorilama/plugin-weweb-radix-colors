@@ -17,18 +17,22 @@ export default {
     plugin: { type: Object, required: true },
     args: {
       type: Boolean,
-      default: () => true,
+      default: true,
     },
   },
   emits: ["update:args"],
   data() {
+    console.log(this.args);
     return {
       dark: this.args,
     };
   },
   watch: {
-    dark(value) {
-      this.$emit("update:args", value);
+    dark: {
+      handler(value) {
+        this.$emit("update:args", value);
+      },
+      immediate: true,
     },
   },
   methods: {},

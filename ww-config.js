@@ -32,6 +32,7 @@ export default {
       /* wwEditor:start */
       edit: () => import("./src/components/SetDarkMode.vue"),
       getIsValid(value) {
+        console.log("valid", value);
         return typeof value == "boolean";
       },
       /* wwEditor:end */
