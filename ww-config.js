@@ -31,9 +31,9 @@ export default {
       isAsync: false,
       /* wwEditor:start */
       edit: () => import("./src/components/SetDarkMode.vue"),
-      getIsValid(value) {
-        console.log("valid", value);
-        return typeof value == "boolean";
+      getIsValid({ dark }) {
+        console.log("valid", dark);
+        return typeof dark == "boolean";
       },
       /* wwEditor:end */
     },

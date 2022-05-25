@@ -16,8 +16,8 @@ export default {
   props: {
     plugin: { type: Object, required: true },
     args: {
-      type: Boolean,
-      default: true,
+      type: Object,
+      default: { dark: true },
     },
   },
   emits: ["update:args"],
@@ -29,8 +29,9 @@ export default {
   },
   watch: {
     dark: {
-      handler(value) {
-        this.$emit("update:args", value);
+      handler(dark) {
+        console.log("watch", dark);
+        this.$emit("update:args", { ...this.args, dark });
       },
       immediate: true,
     },

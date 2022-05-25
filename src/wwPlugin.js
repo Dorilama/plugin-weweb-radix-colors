@@ -20,11 +20,11 @@ export default {
   toggleDarkTheme() {
     // can't test in dev editor
     const dark = wwLib.wwVariable.getValue(`${this.id}-dark`);
-    return this.setDarkMode(!dark);
+    return this.setDarkMode({ dark: !dark });
   },
-  setDarkMode(value) {
+  setDarkMode({ dark }) {
     // can't test in dev editor
-    wwLib.wwVariable.updateValue(`${this.id}-dark`, value);
-    return value;
+    wwLib.wwVariable.updateValue(`${this.id}-dark`, dark);
+    return dark;
   },
 };
