@@ -1,6 +1,6 @@
 {
   "name": "plugin-weweb-radix-colors",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "scripts": {
     "build": "weweb build",
     "serve": "weweb serve"

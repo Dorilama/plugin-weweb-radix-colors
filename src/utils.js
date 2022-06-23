@@ -122,7 +122,13 @@ export function selectedArrToObj(arr) {
   }, {});
 }
 
-export function createColorObject(selected) {
+function mapAlias(alias, name) {
+  return ([key, value]) => {
+    return [key.replace(name, alias), value];
+  };
+}
+
+export function createColorObject(selected, globalAlias = []) {
   let light = [];
   let dark = [];
   selected.forEach((name) => {
@@ -135,6 +141,23 @@ export function createColorObject(selected) {
     light = light.concat(Object.entries(Colors[name + "A"]));
     dark = dark.concat(Object.entries(Colors[name + "Dark"]));
     dark = dark.concat(Object.entries(Colors[name + "Dark" + "A"]));
+  });
+  globalAlias.forEach(([alias, name]) => {
+    if (!alias || !name) {
+      return;
+    }
+    light = light.concat(
+      Object.entries(Colors[name]).map(mapAlias(alias, name))
+    );
+    light = light.concat(
+      Object.entries(Colors[name + "A"]).map(mapAlias(alias, name))
+    );
+    dark = dark.concat(
+      Object.entries(Colors[name + "Dark"]).map(mapAlias(alias, name))
+    );
+    dark = dark.concat(
+      Object.entries(Colors[name + "Dark" + "A"]).map(mapAlias(alias, name))
+    );
   });
   light = Object.fromEntries(light);
   dark = Object.fromEntries(dark);

@@ -1,18 +1,17 @@
 <template>
   <div class="settings">
     <wwEditorFormRow>
-      <wwEditorInputRow
-        label="dark theme"
-        required
-        type="boolean"
-        :model-value="dark"
-        bindable
-        @update:modelValue="setDark"
+      <wwEditorInputTextSelect
+        :options="options"
+        :model-value="theme"
+        placeholder="Select a collection"
+        @update:modelValue="setTheme"
       />
     </wwEditorFormRow>
   </div>
 </template>
 <script>
+import { allThemes } from "../../constants";
 export default {
   props: {
     plugin: { type: Object, required: true },
@@ -22,15 +21,18 @@ export default {
     },
   },
   emits: ["update:args"],
-  data() {},
+  data() {
+    const options = Object.values(allThemes);
+    return { options };
+  },
   computed: {
-    dark() {
-      return this.args.dark;
+    theme() {
+      return this.args.theme;
     },
   },
   methods: {
-    setDark(dark) {
-      this.$emit("update:args", { ...this.args, dark });
+    setTheme(theme) {
+      this.$emit("update:args", { ...this.args, theme });
     },
   },
 };

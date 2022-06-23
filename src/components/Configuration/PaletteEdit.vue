@@ -45,7 +45,7 @@ import {
   selectedArrToObj,
   selectedObjToArr,
   createColorObject,
-} from "../utils";
+} from "../../utils";
 import Sample from "./Sample.vue";
 
 export default {

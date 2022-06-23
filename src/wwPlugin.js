@@ -1,30 +1,51 @@
 /* wwEditor:start */
-import "./components/PaletteEdit.vue";
-import "./components/PaletteSummary.vue";
-import "./components/SetDarkTheme.vue";
+import "./components/Configuration/PaletteEdit.vue";
+import "./components/Configuration/PaletteSummary.vue";
+import "./components/Functions/SetTheme.vue";
 /* wwEditor:end */
+import { allThemes, names } from "./constants";
 
 export default {
-  getColors() {
-    // can't test in dev editor
-    const dark = wwLib.wwVariable.getValue(`${this.id}-dark`);
-    return dark
-      ? this.settings.publicData.colors.dark
-      : this.settings.publicData.colors.light;
+  async onLoad() {
+    this.setColors();
   },
-  getTheme() {
-    // can't test in dev editor
-    const dark = wwLib.wwVariable.getValue(`${this.id}-dark`);
-    return dark;
+  theme() {
+    return wwLib.wwVariable.getValue(`${this.id}-${names.theme}`);
   },
-  toggleDarkTheme() {
-    // can't test in dev editor
-    const dark = wwLib.wwVariable.getValue(`${this.id}-dark`);
-    return this.setDarkTheme({ dark: !dark });
+  colors() {
+    return wwLib.wwVariable.getValue(`${this.id}-${names.colors}`);
   },
-  setDarkTheme({ dark }) {
-    // can't test in dev editor
-    wwLib.wwVariable.updateValue(`${this.id}-dark`, dark);
-    return dark;
+  setColors() {
+    let colors = {};
+    if (this.settings.publicData.colors && this.theme()) {
+      colors =
+        this.theme() === allThemes.dark
+          ? this.settings.publicData.colors.dark
+          : this.settings.publicData.colors.light;
+    }
+    /* wwEditor:start */
+    console.log("set colors", this.theme(), colors);
+    /* wwEditor:end */
+    wwLib.wwVariable.updateValue(`${this.id}-${names.colors}`, colors);
+  },
+  setTheme(theme) {
+    /* wwEditor:start */
+    console.log("set theme", theme);
+    /* wwEditor:end */
+    if (value !== allThemes.dark || value !== allThemes.light) {
+      console.error("Theme must be light or dark");
+      return;
+    }
+    wwLib.wwVariable.updateValue(`${this.id}-${names.theme}`, theme);
+    return theme;
+  },
+  toggleTheme() {
+    const newTheme =
+      this.theme() === allThemes.dark ? allThemes.light : allThemes.dark;
+    /* wwEditor:start */
+    console.log(`toggle theme from ${this.theme()} to ${newTheme}`);
+    /* wwEditor:end */
+    wwLib.wwVariable.updateValue(`${this.id}-${names.theme}`, newTheme);
+    return newTheme;
   },
 };
