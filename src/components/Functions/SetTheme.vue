@@ -6,6 +6,7 @@
         :model-value="theme"
         placeholder="Select a collection"
         @update:modelValue="setTheme"
+        bindable
       />
     </wwEditorFormRow>
   </div>
@@ -22,7 +23,9 @@ export default {
   },
   emits: ["update:args"],
   data() {
-    const options = Object.values(allThemes);
+    const options = Object.values(allThemes).map((value) => {
+      return { value, label: value };
+    });
     return { options };
   },
   computed: {
