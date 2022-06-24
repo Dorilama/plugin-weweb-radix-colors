@@ -39,7 +39,7 @@ export default {
     /* wwEditor:start */
     console.log("set theme", theme);
     /* wwEditor:end */
-    if (theme !== allThemes.dark || theme !== allThemes.light) {
+    if (theme !== allThemes.dark && theme !== allThemes.light) {
       console.error("Theme must be light or dark");
       return;
     }
