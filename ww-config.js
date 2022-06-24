@@ -1,4 +1,4 @@
-import { names } from "./src/constants";
+import { allThemes, names } from "./src/constants";
 
 export default {
   editor: {
@@ -43,6 +43,12 @@ export default {
       type: "object",
       defaultValue: {},
     },
+    {
+      name: names.allThemes,
+      value: names.allThemes,
+      type: "object",
+      defaultValue: allThemes,
+    },
   ],
   actions: [
     {
@@ -81,6 +87,10 @@ export default {
     },
     {
       name: "theme",
+      arrity: 0,
+    },
+    {
+      name: "allThemes",
       arrity: 0,
     },
   ],

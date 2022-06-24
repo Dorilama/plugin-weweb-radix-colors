@@ -19,6 +19,9 @@ export default {
   colors() {
     return wwLib.wwVariable.getValue(`${this.id}-${names.colors}`);
   },
+  allThemes() {
+    return allThemes;
+  },
   setColors() {
     let colors = {};
     if (this.settings.publicData.colors && this.theme()) {
