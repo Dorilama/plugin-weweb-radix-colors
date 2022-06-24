@@ -44,6 +44,7 @@ export default {
       return;
     }
     wwLib.wwVariable.updateValue(`${this.id}-${names.theme}`, theme);
+    this.setColors();
     return theme;
   },
   toggleTheme() {
@@ -53,6 +54,7 @@ export default {
     console.log(`toggle theme from ${this.theme()} to ${newTheme}`);
     /* wwEditor:end */
     wwLib.wwVariable.updateValue(`${this.id}-${names.theme}`, newTheme);
+    this.setColors();
     return newTheme;
   },
 };
