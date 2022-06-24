@@ -23,6 +23,16 @@ export default {
           return true;
         },
       },
+      {
+        label: "Single Alias",
+        edit: () =>
+          import("./src/components/Configuration/SingleAliasEdit.vue"),
+        summary: () =>
+          import("./src/components/Configuration/SingleAliasSummary.vue"),
+        getIsValid(settings) {
+          return true;
+        },
+      },
     ],
   },
   variables: [

@@ -1,13 +1,12 @@
 <template>
   <div class="container">
-    <wwEditorFormRow v-if="settings.publicData.globalAlias">
-      <wwEditorFormRow
-        class="alias-container"
-        v-for="(aliasTuple, index) in settings.publicData.globalAlias || []"
-        :key="index"
-      >
-        <p>{{ aliasTuple[0] || "N/D" }} -> {{ aliasTuple[1] || "N/D" }}</p>
-      </wwEditorFormRow>
+    <wwEditorFormRow
+      class="alias-container"
+      v-for="([alias, light, dark], index) in settings.publicData.singleAlias ||
+      []"
+      :key="index"
+    >
+      <p>{{ alias }} -> light: {{ light }}, dark: {{ dark }}</p>
     </wwEditorFormRow>
   </div>
 </template>

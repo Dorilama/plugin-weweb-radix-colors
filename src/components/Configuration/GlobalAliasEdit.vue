@@ -1,26 +1,23 @@
 <template>
   <div class="container">
-    <wwEditorFormRow v-if="settings.publicData.globalAlias">
-      <div
-        v-for="(aliasTuple, index) in settings.publicData.globalAlias || []"
-        :key="index"
-      >
-        <wwEditorFormRow class="alias-container">
-          <wwEditorInputText
-            type="text"
-            placeholder="alias name"
-            :model-value="aliasTuple[0]"
-            @update:modelValue="(value) => setAlias(index, value)"
-            class="alias-input"
-          />
-          <wwEditorInputTextSelect
-            placeholder="color name"
-            :options="options"
-            :model-value="aliasTuple[1]"
-            @update:modelValue="(value) => setName(index, value)"
-          />
-        </wwEditorFormRow>
-      </div>
+    <wwEditorFormRow
+      class="alias-container"
+      v-for="([alias, name], index) in settings.publicData.globalAlias || []"
+      :key="index"
+    >
+      <wwEditorInputText
+        type="text"
+        placeholder="alias name"
+        :model-value="alias"
+        @update:modelValue="(value) => setAlias(index, value)"
+        class="alias-input"
+      />
+      <wwEditorInputTextSelect
+        placeholder="color name"
+        :options="options"
+        :model-value="name"
+        @update:modelValue="(value) => setName(index, value)"
+      />
     </wwEditorFormRow>
     <wwEditorFormRow>
       <button

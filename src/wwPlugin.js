@@ -1,6 +1,10 @@
 /* wwEditor:start */
 import "./components/Configuration/PaletteEdit.vue";
 import "./components/Configuration/PaletteSummary.vue";
+import "./components/Configuration/GlobalAliasEdit.vue";
+import "./components/Configuration/GlobalAliasSummary.vue";
+import "./components/Configuration/SingleAliasEdit.vue";
+import "./components/Configuration/SingleAliasSummary.vue";
 import "./components/Functions/SetTheme.vue";
 /* wwEditor:end */
 import { allThemes, names } from "./constants";

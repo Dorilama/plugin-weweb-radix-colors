@@ -1,4 +1,5 @@
 import * as Colors from "@radix-ui/colors";
+import { allThemes } from "./constants";
 
 const errorTip = () => "common for Error";
 const successTip = () => "common for Success";
@@ -128,7 +129,11 @@ function mapAlias(alias, name) {
   };
 }
 
-export function createColorObject(selected, globalAlias = []) {
+export function createColorObject(
+  selected,
+  globalAlias = [],
+  singleAlias = []
+) {
   let light = [];
   let dark = [];
   selected.forEach((name) => {
@@ -159,7 +164,19 @@ export function createColorObject(selected, globalAlias = []) {
       Object.entries(Colors[name + "Dark" + "A"]).map(mapAlias(alias, name))
     );
   });
-  light = Object.fromEntries(light);
-  dark = Object.fromEntries(dark);
-  return { light, dark };
+  const finalColors = {
+    [allThemes.light]: Object.fromEntries(light),
+    [allThemes.dark]: Object.fromEntries(dark),
+  };
+  singleAlias.forEach(([alias, light, dark]) => {
+    if (!alias || !light || !dark) {
+      return;
+    }
+    finalColors[allThemes.light][alias] =
+      finalColors[allThemes.light][light] || light;
+    finalColors[allThemes.dark][alias] =
+      finalColors[allThemes.dark][dark] || dark;
+  });
+
+  return finalColors;
 }

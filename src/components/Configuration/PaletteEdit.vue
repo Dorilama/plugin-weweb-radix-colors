@@ -119,7 +119,7 @@ a {
 .tip-right {
   margin-left: auto;
   text-align: right;
-  max-width: 55%;
+  max-width: 50%;
 }
 .color-switch {
   display: flex;
