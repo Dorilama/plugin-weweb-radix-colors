@@ -168,7 +168,7 @@ export function createColorObject(
     [allThemes.light]: Object.fromEntries(light),
     [allThemes.dark]: Object.fromEntries(dark),
   };
-  singleAlias.forEach(([alias, light, dark]) => {
+  singleAlias.forEach(({ alias, light, dark }) => {
     if (!alias || !light || !dark) {
       return;
     }

@@ -1,13 +1,11 @@
 <template>
-  <div class="container">
-    <wwEditorFormRow
-      class="alias-container"
-      v-for="([alias, light, dark], index) in settings.publicData.singleAlias ||
-      []"
-      :key="index"
-    >
-      <p>{{ alias }} -> light: {{ light }}, dark: {{ dark }}</p>
-    </wwEditorFormRow>
+  <div>
+    <p v-if="!singleAlias.length">No alias selected</p>
+    <ul>
+      <li v-for="({ alias, light, dark }, index) in singleAlias" :key="index">
+        {{ alias }} -> light: {{ light }} - dark: {{ dark }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -17,12 +15,16 @@ export default {
     settings: { type: Object, required: true },
     plugin: { type: Object, required: true },
   },
+  computed: {
+    singleAlias() {
+      return (this.settings.publicData.singleAlias || []).filter(
+        ({ alias, light, dark }) => {
+          return !!(alias && light && dark);
+        }
+      );
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style lang="scss" scoped></style>

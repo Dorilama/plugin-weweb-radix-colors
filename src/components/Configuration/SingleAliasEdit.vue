@@ -1,48 +1,41 @@
 <template>
-  <div class="container">
+  <div>
     <datalist id="selected-colors">
       <option v-for="color in selected" :key="color" :value="color"></option>
     </datalist>
-
-    <wwEditorFormRow
-      class="alias-container"
-      v-for="([alias, light, dark], index) in settings.publicData.singleAlias ||
-      []"
-      :key="index"
+    <wwEditorInputRow
+      label=""
+      type="array"
+      :model-value="singleAlias"
+      @update:modelValue="setSingleAlias"
+      @add-item="setSingleAlias([...(singleAlias || []), {}])"
     >
-      <wwEditorInputText
-        type="text"
-        placeholder="alias name"
-        :model-value="alias"
-        @update:modelValue="(value) => setAlias(index, value)"
-        class="alias-input"
-      />
-      <wwEditorInputText
-        label="light"
-        type="text"
-        placeholder="light"
-        :model-value="light"
-        @update:modelValue="(value) => setLight(index, value)"
-        list="selected-colors"
-        class="alias-input"
-      />
-      <wwEditorInputText
-        type="text"
-        placeholder="dark"
-        :model-value="dark"
-        @update:modelValue="(value) => setDark(index, value)"
-        list="selected-colors"
-      />
-    </wwEditorFormRow>
-    <wwEditorFormRow>
-      <button
-        type="button"
-        class="ww-editor-button -small -primary ml-2 mt-3"
-        @click="add"
-      >
-        add alias
-      </button>
-    </wwEditorFormRow>
+      <template #default="{ item, setItem }">
+        <wwEditorInputRow
+          :model-value="item.alias"
+          type="query"
+          small
+          placeholder="alias name"
+          @update:model-value="setItem({ ...item, alias: $event })"
+        />
+        <wwEditorInputRow
+          :model-value="item.light"
+          type="query"
+          small
+          placeholder="light color"
+          @update:model-value="setItem({ ...item, light: $event })"
+          list="selected-colors"
+        />
+        <wwEditorInputRow
+          :model-value="item.dark"
+          type="query"
+          small
+          placeholder="dark color"
+          @update:model-value="setItem({ ...item, dark: $event })"
+          list="selected-colors"
+        />
+      </template>
+    </wwEditorInputRow>
   </div>
 </template>
 
@@ -55,10 +48,16 @@ export default {
     plugin: { type: Object, required: true },
   },
   computed: {
+    globalAlias() {
+      return this.settings.publicData.globalAlias || [];
+    },
+    singleAlias() {
+      return this.settings.publicData.singleAlias || [];
+    },
     selected() {
       const globalAlias = this.settings.publicData.globalAlias || [];
       return this.settings.publicData.selected.concat(
-        globalAlias.map(([alias, name]) => {
+        globalAlias.map(({ alias, name }) => {
           if (alias && name) {
             return alias;
           }
@@ -68,9 +67,7 @@ export default {
   },
   emits: ["update:settings"],
   methods: {
-    setAlias(index, value) {
-      const singleAlias = this.settings.publicData.singleAlias || [];
-      singleAlias[index][0] = value;
+    setSingleAlias(singleAlias) {
       const colors = createColorObject(
         this.settings.publicData.selected,
         this.settings.publicData.globalAlias,
@@ -79,61 +76,10 @@ export default {
       this.$emit("update:settings", {
         ...this.settings,
         publicData: { ...this.settings.publicData, singleAlias, colors },
-      });
-    },
-    setDark(index, value) {
-      const singleAlias = this.settings.publicData.singleAlias || [];
-      singleAlias[index][2] = value;
-      const colors = createColorObject(
-        this.settings.publicData.selected,
-        this.settings.publicData.globalAlias,
-        singleAlias
-      );
-      this.$emit("update:settings", {
-        ...this.settings,
-        publicData: { ...this.settings.publicData, singleAlias, colors },
-      });
-    },
-    setLight(index, value) {
-      const singleAlias = this.settings.publicData.singleAlias || [];
-      singleAlias[index][1] = value;
-      const colors = createColorObject(
-        this.settings.publicData.selected,
-        this.settings.publicData.globalAlias,
-        singleAlias
-      );
-      this.$emit("update:settings", {
-        ...this.settings,
-        publicData: { ...this.settings.publicData, singleAlias, colors },
-      });
-    },
-    add() {
-      const singleAlias = this.settings.publicData.singleAlias || [];
-      singleAlias.push([]);
-      console.log(this.settings.publicData.colors);
-      this.$emit("update:settings", {
-        ...this.settings,
-        publicData: { ...this.settings.publicData, singleAlias },
       });
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.alias-container {
-  flex-direction: row;
-  justify-content: flex-start;
-  & * {
-    width: calc(100% - 20px / 3);
-  }
-}
-.alias-input {
-  margin-right: 10px;
-}
-</style>
+<style lang="scss" scoped></style>
