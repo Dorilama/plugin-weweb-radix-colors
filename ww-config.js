@@ -76,11 +76,11 @@ export default {
   ],
   formulas: [
     {
-      name: "getColors",
+      name: "colors",
       arrity: 0,
     },
     {
-      name: "getTheme",
+      name: "theme",
       arrity: 0,
     },
   ],
