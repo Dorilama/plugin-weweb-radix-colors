@@ -35,7 +35,7 @@ export default {
     /* wwEditor:end */
     wwLib.wwVariable.updateValue(`${this.id}-${names.colors}`, colors);
   },
-  setTheme(theme) {
+  setTheme({ theme }) {
     /* wwEditor:start */
     console.log("set theme", theme);
     /* wwEditor:end */
