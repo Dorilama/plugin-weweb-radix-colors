@@ -147,7 +147,7 @@ export function createColorObject(
     dark = dark.concat(Object.entries(Colors[name + "Dark"]));
     dark = dark.concat(Object.entries(Colors[name + "Dark" + "A"]));
   });
-  globalAlias.forEach(([alias, name]) => {
+  globalAlias.forEach(({ alias, name }) => {
     if (!alias || !name) {
       return;
     }

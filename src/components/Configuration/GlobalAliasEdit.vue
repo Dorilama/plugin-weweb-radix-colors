@@ -1,34 +1,29 @@
 <template>
-  <div class="container">
-    <wwEditorFormRow
-      class="alias-container"
-      v-for="([alias, name], index) in settings.publicData.globalAlias || []"
-      :key="index"
-    >
-      <wwEditorInputText
-        type="text"
+  <wwEditorInputRow
+    label=""
+    type="array"
+    :model-value="globalAlias"
+    @update:modelValue="setGlobalAlias"
+    @add-item="setGlobalAlias([...(globalAlias || []), {}])"
+  >
+    <template #default="{ item, setItem }">
+      <wwEditorInputRow
+        :model-value="item.alias"
+        type="query"
+        small
         placeholder="alias name"
-        :model-value="alias"
-        @update:modelValue="(value) => setAlias(index, value)"
-        class="alias-input"
+        @update:model-value="setItem({ ...item, alias: $event })"
       />
-      <wwEditorInputTextSelect
-        placeholder="color name"
+      <wwEditorInputRow
+        :model-value="item.name"
+        type="select"
         :options="options"
-        :model-value="name"
-        @update:modelValue="(value) => setName(index, value)"
+        small
+        placeholder="color name"
+        @update:model-value="setItem({ ...item, name: $event })"
       />
-    </wwEditorFormRow>
-    <wwEditorFormRow>
-      <button
-        type="button"
-        class="ww-editor-button -small -primary ml-2 mt-3"
-        @click="add"
-      >
-        add alias
-      </button>
-    </wwEditorFormRow>
-  </div>
+    </template>
+  </wwEditorInputRow>
 </template>
 
 <script>
@@ -45,12 +40,13 @@ export default {
         return { value, label: value };
       });
     },
+    globalAlias() {
+      return this.settings.publicData.globalAlias || [];
+    },
   },
   emits: ["update:settings"],
   methods: {
-    setAlias(index, value) {
-      const globalAlias = this.settings.publicData.globalAlias || [];
-      globalAlias[index][0] = value;
+    setGlobalAlias(globalAlias) {
       const colors = createColorObject(
         this.settings.publicData.selected,
         globalAlias
@@ -58,46 +54,10 @@ export default {
       this.$emit("update:settings", {
         ...this.settings,
         publicData: { ...this.settings.publicData, globalAlias, colors },
-      });
-    },
-    setName(index, value) {
-      const globalAlias = this.settings.publicData.globalAlias || [];
-      globalAlias[index][1] = value;
-      const colors = createColorObject(
-        this.settings.publicData.selected,
-        globalAlias
-      );
-      this.$emit("update:settings", {
-        ...this.settings,
-        publicData: { ...this.settings.publicData, globalAlias, colors },
-      });
-    },
-    add() {
-      const globalAlias = this.settings.publicData.globalAlias || [];
-      globalAlias.push([]);
-      this.$emit("update:settings", {
-        ...this.settings,
-        publicData: { ...this.settings.publicData, globalAlias },
       });
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.alias-container {
-  flex-direction: row;
-  justify-content: flex-start;
-  & * {
-    width: calc(100% - 10px / 2);
-  }
-}
-.alias-input {
-  margin-right: 10px;
-}
-</style>
+<style lang="scss" scoped></style>

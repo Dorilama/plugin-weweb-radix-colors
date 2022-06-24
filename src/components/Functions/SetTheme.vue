@@ -1,14 +1,12 @@
 <template>
-  <div class="settings">
-    <wwEditorInputRow
-      :model-value="theme"
-      type="select"
-      :options="options"
-      placeholder="Select a theme"
-      @update:model-value="setTheme"
-      bindable
-    />
-  </div>
+  <wwEditorInputRow
+    :model-value="theme"
+    type="select"
+    :options="options"
+    placeholder="Select a theme"
+    @update:model-value="setTheme"
+    bindable
+  />
 </template>
 <script>
 import { allThemes } from "../../constants";
@@ -40,9 +38,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.settings {
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style lang="scss" scoped></style>

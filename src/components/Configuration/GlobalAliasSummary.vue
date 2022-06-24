@@ -1,14 +1,11 @@
 <template>
-  <div class="container">
-    <wwEditorFormRow v-if="settings.publicData.globalAlias">
-      <wwEditorFormRow
-        class="alias-container"
-        v-for="(aliasTuple, index) in settings.publicData.globalAlias || []"
-        :key="index"
-      >
-        <p>{{ aliasTuple[0] || "N/D" }} -> {{ aliasTuple[1] || "N/D" }}</p>
-      </wwEditorFormRow>
-    </wwEditorFormRow>
+  <div>
+    <p v-if="!globalAlias.length">No alias selected</p>
+    <ul>
+      <li v-for="({ alias, name }, index) in globalAlias" :key="index">
+        {{ alias }} -> {{ name }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -18,12 +15,16 @@ export default {
     settings: { type: Object, required: true },
     plugin: { type: Object, required: true },
   },
+  computed: {
+    globalAlias() {
+      return (this.settings.publicData.globalAlias || []).filter(
+        ({ alias, name }) => {
+          return !!(alias && name);
+        }
+      );
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -56,8 +56,9 @@ export default {
   },
   computed: {
     selected() {
+      const globalAlias = this.settings.publicData.globalAlias || [];
       return this.settings.publicData.selected.concat(
-        this.settings.publicData.globalAlias.map(([alias, name]) => {
+        globalAlias.map(([alias, name]) => {
           if (alias && name) {
             return alias;
           }
