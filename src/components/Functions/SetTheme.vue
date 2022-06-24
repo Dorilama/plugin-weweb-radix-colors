@@ -1,14 +1,13 @@
 <template>
   <div class="settings">
-    <wwEditorFormRow>
-      <wwEditorInputTextSelect
-        :options="options"
-        :model-value="theme"
-        placeholder="Select a collection"
-        @update:modelValue="setTheme"
-        bindable
-      />
-    </wwEditorFormRow>
+    <wwEditorInputRow
+      :model-value="theme"
+      type="select"
+      :options="options"
+      placeholder="Select a theme"
+      @update:model-value="setTheme"
+      bindable
+    />
   </div>
 </template>
 <script>
